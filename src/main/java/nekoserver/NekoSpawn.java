@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NekoSpawn extends JavaPlugin {
     private SpawnManager spawnManager;
+    private static final String BUNGEE_CHANNEL = "BungeeCord";
 
     @Override
     public void onEnable() {
@@ -19,6 +20,12 @@ public final class NekoSpawn extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(spawnManager), this);
         getServer().getPluginManager().registerEvents(new EntitySpawnListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(spawnManager), this);
+        getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        getServer().getPluginManager().registerEvents(new MenuClickListener(), this);
+        getServer().getPluginManager().registerEvents(new MenuProtectionListener(), this);
+        
+        // 注册插件通道
+        getServer().getMessenger().registerOutgoingPluginChannel(this, BUNGEE_CHANNEL);
         
         // 启动自动移除生物功能
         EntityManager.startAutoRemoveTask(this);
@@ -32,6 +39,9 @@ public final class NekoSpawn extends JavaPlugin {
         // Plugin shutdown logic
         System.out.println("[NekoSpawn] 插件已禁用！");
         EntityManager.stopAutoRemoveTask();
+        
+        // 注销插件通道
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this, BUNGEE_CHANNEL);
     }
     
     public SpawnManager getSpawnManager() {

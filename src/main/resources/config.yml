@@ -16,3 +16,10 @@ spawn:
   yaw: 0.0
   # 垂直朝向 (pitch)
   pitch: 0.0
+
+# Lobby服务器设置
+# 玩家点击菜单"进入游戏"按钮时会连接到这个服务器
+# 支持BungeeCord和Velocity代理服务器
+lobby-server:
+  # 服务器名称（需要在代理服务器中配置）
+  name: lobby
