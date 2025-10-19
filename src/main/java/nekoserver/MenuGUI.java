@@ -15,12 +15,26 @@ public class MenuGUI {
     private static final int MENU_SIZE = 27; // 3行GUI
     private static final String MENU_TITLE = "§d✧猫咪梦幻菜单✧";
     private static final String BUNGEE_CHANNEL = "BungeeCord";
+    private static final int ENTER_GAME_SLOT = 13; // "进入游戏"按钮位置
     
     public static void openMenu(Player player) {
         // 创建3行GUI
         Inventory menu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
         
-        // 创建猫娘主题的"进入游戏"按钮
+        // 创建核心功能按钮
+        createEnterGameButton(menu);
+        
+        // 添加装饰性物品
+        addDecorativeItems(menu);
+        
+        // 打开GUI
+        player.openInventory(menu);
+    }
+    
+    /**
+     * 创建"进入游戏"按钮
+     */
+    private static void createEnterGameButton(Inventory menu) {
         ItemStack enterGameItem = new ItemStack(Material.DIAMOND);
         ItemMeta enterGameMeta = enterGameItem.getItemMeta();
         if (enterGameMeta != null) {
@@ -33,41 +47,68 @@ public class MenuGUI {
             enterGameItem.setItemMeta(enterGameMeta);
         }
         
-        // 将"进入游戏"按钮放在中间位置 (第2行第5个格子，索引为13)
-        menu.setItem(13, enterGameItem);
-        
-        // 添加装饰性物品
-        addDecorativeItems(menu);
-        
-        // 打开GUI
-        player.openInventory(menu);
+        // 将按钮放在中心位置
+        menu.setItem(ENTER_GAME_SLOT, enterGameItem);
     }
     
+    /**
+     * 添加装饰性物品，美化GUI界面
+     */
     private static void addDecorativeItems(Inventory menu) {
-        // 添加猫娘主题的装饰物品
-        ItemStack decorativeItem = new ItemStack(Material.COOKED_FISH);
-        ItemMeta decorativeMeta = decorativeItem.getItemMeta();
-        if (decorativeMeta != null) {
-            decorativeMeta.setDisplayName("§d✧猫娘的鱼干✧");
-            decorativeMeta.setLore(Arrays.asList(
-                "§7§o喵~这是猫娘最爱的零食喵!",
-                "§7§o仅供装饰，不可食用喵~"
-            ));
-            decorativeItem.setItemMeta(decorativeMeta);
-        }
+        // 创建四角装饰物品
+        createCornerDecorations(menu);
         
-        // 在GUI的边缘放置装饰物品
-        for (int i = 0; i < MENU_SIZE; i++) {
-            // 如果是边缘位置且还没有放置主要按钮，则放置装饰物品
-            if ((i < 9 || i >= 18 || i % 9 == 0 || i % 9 == 8) && i != 13 && menu.getItem(i) == null) {
-                menu.setItem(i, decorativeItem.clone());
-            }
+        // 创建中心按钮周围的装饰
+        createCenterDecorations(menu);
+    }
+    
+    /**
+     * 创建四角装饰物品
+     */
+    private static void createCornerDecorations(Inventory menu) {
+        // 左上角 - 小鱼干
+        menu.setItem(0, createDecorativeItem(Material.COOKED_FISH, "§b✧小鱼干✧", "§7§o猫咪最爱的零食喵~"));
+        
+        // 右上角 - 猫薄荷
+        menu.setItem(8, createDecorativeItem(Material.LEAVES, "§a✧猫薄荷✧", "§7§o让猫咪放松的香草喵~"));
+        
+        // 左下角 - 玩具球
+        menu.setItem(18, createDecorativeItem(Material.STRING, "§c✧玩具球✧", "§7§o猫咪的娱乐用品喵~"));
+        
+        // 右下角 - 猫窝
+        menu.setItem(26, createDecorativeItem(Material.BED, "§d✧小猫窝✧", "§7§o猫咪休息的地方喵~"));
+    }
+    
+    /**
+     * 创建中心按钮周围的装饰
+     */
+    private static void createCenterDecorations(Inventory menu) {
+        ItemStack starItem = createDecorativeItem(Material.NETHER_STAR, "§e✧星星碎片✧", "§7§o闪闪发光的魔法碎片喵~");
+        
+        // 在"进入游戏"按钮周围放置装饰物品
+        menu.setItem(4, starItem.clone());   // 上方
+        menu.setItem(12, starItem.clone());  // 左方
+        menu.setItem(14, starItem.clone());  // 右方
+        menu.setItem(22, starItem.clone());  // 下方
+    }
+    
+    /**
+     * 创建装饰性物品的通用方法
+     */
+    private static ItemStack createDecorativeItem(Material material, String displayName, String lore) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName(displayName);
+            meta.setLore(Arrays.asList(lore));
+            item.setItemMeta(meta);
         }
+        return item;
     }
     
     public static void handleMenuClick(Player player, int slot) {
         // 检查是否点击了"进入游戏"按钮
-        if (slot == 13) {
+        if (slot == ENTER_GAME_SLOT) {
             // 连接到lobby服务器
             connectToLobbyServer(player);
             player.closeInventory();

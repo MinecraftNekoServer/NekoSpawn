@@ -31,15 +31,28 @@ public class PlayerJoinListener implements Listener {
     }
     
     private void giveMenuClock(Player player) {
-        // 创建猫娘主题的菜单物品
+        // 清空玩家物品栏中原有的菜单时钟
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack item = player.getInventory().getItem(i);
+            if (item != null && item.getType() == Material.WATCH && 
+                item.hasItemMeta() && item.getItemMeta().hasDisplayName() &&
+                item.getItemMeta().getDisplayName().contains("猫咪传送门")) {
+                player.getInventory().clear(i);
+            }
+        }
+        
+        // 创建猫娘主题的菜单时钟
         ItemStack clock = new ItemStack(Material.WATCH);
-        ItemMeta meta = clock.getItemMeta();
-        meta.setDisplayName("§d✧猫咪传送门✧");
-        meta.setLore(java.util.Arrays.asList(
-            "§7§o可爱的猫娘为你服务喵~",
-            "§7§o右键打开梦幻菜单喵!"
-        ));
-        clock.setItemMeta(meta);
+        ItemMeta clockMeta = clock.getItemMeta();
+        if (clockMeta != null) {
+            clockMeta.setDisplayName("§d✧猫咪传送门✧");
+            clockMeta.setLore(java.util.Arrays.asList(
+                "§7§o可爱的猫娘为你服务喵~",
+                "§7§o右键打开梦幻菜单喵!",
+                "§c§l不可丢弃 & 不可移动"
+            ));
+            clock.setItemMeta(clockMeta);
+        }
         
         // 给玩家物品栏添加时钟（放在物品栏中间位置）
         player.getInventory().setItem(4, clock);
