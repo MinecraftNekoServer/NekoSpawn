@@ -1,0 +1,12 @@
+name: NekoSpawn
+version: '${project.version}'
+main: nekoserver.NekoSpawn
+commands:
+  spawn:
+    description: 设置出生点位置
+    usage: /spawn set
+    permission: nekospawn.setspawn
+permissions:
+  nekospawn.setspawn:
+    description: 允许设置出生点
+    default: op
