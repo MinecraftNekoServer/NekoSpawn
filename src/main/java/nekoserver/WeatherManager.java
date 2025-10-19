@@ -21,7 +21,8 @@ public class WeatherManager {
         // 启动新的定时任务，每60秒检查并锁定天气
         weatherTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             lockWeather();
-        }, 0L, 1200L); // 立即开始，每60秒(1200 ticks)执行一次
+        },
+                0L, 1200L); // 立即开始，每60秒(1200 ticks)执行一次
         
         // 立即锁定天气
         lockWeather();
@@ -51,6 +52,6 @@ public class WeatherManager {
             world.setThunderDuration(Integer.MAX_VALUE);
         }
         
-        Bukkit.getLogger().info("[NekoSpawn] 天气已锁定为晴天无雨");
+        //Bukkit.getLogger().info("[NekoSpawn] 天气已锁定为晴天无雨");
     }
 }
