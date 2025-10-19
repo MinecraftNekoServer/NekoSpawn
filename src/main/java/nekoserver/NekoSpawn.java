@@ -23,6 +23,7 @@ public final class NekoSpawn extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         getServer().getPluginManager().registerEvents(new MenuClickListener(), this);
         getServer().getPluginManager().registerEvents(new MenuProtectionListener(), this);
+        getServer().getPluginManager().registerEvents(new BuildPermissionListener(), this);
         
         // 注册插件通道
         getServer().getMessenger().registerOutgoingPluginChannel(this, BUNGEE_CHANNEL);
