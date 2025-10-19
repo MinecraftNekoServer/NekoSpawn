@@ -33,6 +33,9 @@ public final class NekoSpawn extends JavaPlugin {
         
         // 设置默认阻止生物生成
         EntityManager.setPreventSpawning(true);
+        
+        // 启动天气锁定功能
+        WeatherManager.startWeatherLockTask(this);
     }
 
     @Override
@@ -40,6 +43,9 @@ public final class NekoSpawn extends JavaPlugin {
         // Plugin shutdown logic
         System.out.println("[NekoSpawn] 插件已禁用！");
         EntityManager.stopAutoRemoveTask();
+        
+        // 停止天气锁定功能
+        WeatherManager.stopWeatherLockTask();
         
         // 注销插件通道
         getServer().getMessenger().unregisterOutgoingPluginChannel(this, BUNGEE_CHANNEL);
