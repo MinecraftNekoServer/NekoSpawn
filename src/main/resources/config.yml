@@ -1,0 +1,18 @@
+# NekoSpawn Configuration File
+
+# 出生点位置设置
+# 当玩家使用 /spawn set 命令时，位置信息会自动保存到这里
+# 当所有数值都为0时，表示未设置出生点，不会强制传送
+spawn:
+  # 世界名称
+  world: world
+  # X坐标
+  x: 0.0
+  # Y坐标
+  y: 0.0
+  # Z坐标
+  z: 0.0
+  # 水平朝向 (yaw)
+  yaw: 0.0
+  # 垂直朝向 (pitch)
+  pitch: 0.0

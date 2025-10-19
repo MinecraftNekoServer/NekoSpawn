@@ -63,6 +63,11 @@ public class SpawnManager {
         double z = config.getDouble("spawn.z");
         float yaw = (float) config.getDouble("spawn.yaw");
         float pitch = (float) config.getDouble("spawn.pitch");
+        
+        // 如果所有坐标都为0，则认为未设置
+        if (x == 0.0 && y == 0.0 && z == 0.0 && yaw == 0.0 && pitch == 0.0) {
+            return null;
+        }
 
         return new Location(world, x, y, z, yaw, pitch);
     }

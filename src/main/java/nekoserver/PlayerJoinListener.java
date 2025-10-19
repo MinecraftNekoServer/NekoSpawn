@@ -21,6 +21,7 @@ public class PlayerJoinListener implements Listener {
         // 如果出生点已设置，则传送玩家到出生点
         if (spawnLocation != null) {
             player.teleport(spawnLocation);
+            player.sendMessage("§a欢迎回到出生点！");
         }
     }
 }

@@ -7,7 +7,7 @@ public final class NekoSpawn extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println("[NekoSpawn] Plugin has been enabled!");
+        System.out.println("[NekoSpawn] 插件已启用！");
         
         // 初始化出生点管理器
         spawnManager = new SpawnManager(this);
@@ -22,7 +22,7 @@ public final class NekoSpawn extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        System.out.println("[NekoSpawn] Plugin has been disabled!");
+        System.out.println("[NekoSpawn] 插件已禁用！");
     }
     
     public SpawnManager getSpawnManager() {
