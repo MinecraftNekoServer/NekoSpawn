@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerMoveListener implements Listener {
     private final SpawnManager spawnManager;
-    private static final int Y_THRESHOLD = 18;
+    private static final int Y_THRESHOLD = 0;
     
     public PlayerMoveListener(SpawnManager spawnManager) {
         this.spawnManager = spawnManager;
